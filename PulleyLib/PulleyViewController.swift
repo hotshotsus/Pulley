@@ -823,7 +823,7 @@ open class PulleyViewController: UIViewController, PulleyDrawerViewControllerDel
                 self.drawerScrollView.scrollIndicatorInsets =  UIEdgeInsets(top: 0, left: 0, bottom: self.bottomLayoutGuide.length, right: 0) // (usefull if visible..)
             }
 
-            let lowestStop = getStopList().min() ?? 0
+            let lowestStop = drawerPosition == .closed ? 0 : getStopList().min() ?? 0
             
             let adjustedLeftSafeArea = adjustDrawerHorizontalInsetToSafeArea ? safeAreaLeftInset : 0.0
             let adjustedRightSafeArea = adjustDrawerHorizontalInsetToSafeArea ? safeAreaRightInset : 0.0
@@ -1181,6 +1181,8 @@ open class PulleyViewController: UIViewController, PulleyDrawerViewControllerDel
         }
         
         drawerPosition = position
+        
+        view.setNeedsLayout()
         
         var collapsedHeight:CGFloat = kPulleyDefaultCollapsedHeight
         var partialRevealHeight:CGFloat = kPulleyDefaultPartialRevealHeight
